@@ -3,9 +3,9 @@ require File.join([File.dirname(__FILE__),'lib','csvj_cli','version.rb'])
 spec = Gem::Specification.new do |s| 
   s.name = 'csvj_cli'
   s.version = CsvjCli::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.author = 'Stelios Omirou'
+  s.email = 'selemis@gmail.com'
+  # s.homepage = 'http://your.website.com'
   s.platform = Gem::Platform::RUBY
   s.summary = 'A description of your project'
   s.files = `git ls-files`.split("
@@ -20,4 +20,5 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
   s.add_runtime_dependency('gli','2.13.0')
+  s.add_runtime_dependency('csvj')
 end

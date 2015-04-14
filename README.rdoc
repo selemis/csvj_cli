@@ -1,6 +1,6 @@
 = csvj_cli
 
-Describe your project here
+This is a simple utility for joining 2 csv files in an sql like way.
 
 :include:csvj_cli.rdoc
 

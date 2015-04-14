@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'gli'
 begin # XXX: Remove this begin/rescue before distributing your app
-require 'csvj_cli'
+  require 'csvj_cli'
 rescue LoadError
   STDERR.puts 'In development, you need to use `bundle exec bin/csvj_cli` to run your app'
   STDERR.puts 'At install-time, RubyGems will make sure lib, etc. are in the load path'
@@ -11,42 +11,52 @@ end
 
 include GLI::App
 
-program_desc 'Describe your application here'
+program_desc 'Very simple utility for joining 2 csv files in an sql-like way'
 
 version CsvjCli::VERSION
 
 subcommand_option_handling :normal
 arguments :strict
 
-desc 'Describe some switch here'
-switch [:s,:switch]
-
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
-
-desc 'Describe join here'
-arg_name 'Describe arguments to join here'
+desc 'Joins two csv files'
 command :join do |c|
-  c.desc 'Describe a switch to join'
-  c.switch :s
+  c.desc 'Path to the first csv file'
+  c.default_value 'file1.csv'
+  c.flag :file1
 
-  c.desc 'Describe a flag to join'
-  c.default_value 'default'
-  c.flag :f
-  c.action do |global_options,options,args|
+  c.desc 'Path to the second csv file'
+  c.default_value 'file2.csv'
+  c.flag :file2
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+  c.desc 'Path to the output result file'
+  c.default_value 'output.csv'
+  c.flag :output
 
-    puts "join command ran"
+  c.desc 'Path to diff output result file'
+  c.default_value 'diff_output.csv'
+  c.flag :diff_output
+
+  c.default_value '1'
+  c.flag :cols1
+
+  c.default_value '1'
+  c.flag :cols2
+
+  c.action do |global_options, options, args|
+    joiner = CsvJoiner.new
+    joiner.join(
+        {file1: options[:file1],
+         file2: options[:file2],
+         output_file: options[:output],
+         diff_output_file: options[:diff_output],
+         cols1: options[:cols1].split(',').map { |e| e.to_i },
+         cols2: options[:cols2].split(',').map { |e| e.to_i }}
+    )
   end
+
 end
 
-pre do |global,command,options,args|
+pre do |global, command, options, args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
   # chosen command
@@ -55,7 +65,7 @@ pre do |global,command,options,args|
   true
 end
 
-post do |global,command,options,args|
+post do |global, command, options, args|
   # Post logic here
   # Use skips_post before a command to skip this
   # block on that command only
