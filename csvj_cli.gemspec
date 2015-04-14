@@ -7,7 +7,9 @@ spec = Gem::Specification.new do |s|
   s.email = 'selemis@gmail.com'
   # s.homepage = 'http://your.website.com'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'It is a simple utility for joining 2 csv files in an sql like way'
+  s.description = 'This is a gli wrapper for csvj gem'
+  s.license = 'MIT'
   s.files = `git ls-files`.split("
 ")
   s.require_paths << 'lib'
@@ -15,7 +17,7 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc','csvj_cli.rdoc']
   s.rdoc_options << '--title' << 'csvj_cli' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
-  s.executables << 'csvj_cli'
+  s.executables << 'csvj'
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
