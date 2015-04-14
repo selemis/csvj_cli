@@ -1,0 +1,5 @@
+= csvj_cli
+
+Generate this with
+    csvj_cli rdoc
+After you have described your command line interface
